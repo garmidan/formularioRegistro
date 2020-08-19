@@ -8,7 +8,7 @@
 <body>
     <div class="row col-md-12">
         <div class="col-md-6" style="margin: 50px 0px 0px 0px;">
-            <h1 style="color: red;text-align: center;">Formulario de Registro </h1>
+            <h1 style="color: red;text-align: center;">Formulario de Registro</h1>
             {% if validacion == 2%}
             <div class="alert alert-danger" role="alert">
                 Los campos son obligatorios!
@@ -22,6 +22,16 @@
             {% if validacion == 3%}
             <div class="alert alert-danger" role="alert">
                 la cedula ingresada ya esta registrada!
+            </div>
+            {% endif%}
+            {% if validacion == 4%}
+            <div class="alert alert-danger" role="alert">
+                los nombres y apellidos solo reciben datos alfabeticos!
+            </div>
+            {% endif%}
+            {% if validacion == 5%}
+            <div class="alert alert-danger" role="alert">
+                cedula y telefono solo reciben datos numericos!
             </div>
             {% endif%}
             <form action="/registro/" method="GET">
