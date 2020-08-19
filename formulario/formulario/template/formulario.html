@@ -6,31 +6,90 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <body>
-    <div style="margin: 50px 200px 0 200px;">
-        <h1 style="color: red;text-align: center;">Formulario de Registro</h1>
-        <form action="/registro/" method="GET">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Nombres</label>
-                <input type="text" class="form-control" name="nombre"  placeholder="Digite su nombre">
+    <div class="row col-md-12">
+        <div class="col-md-6" style="margin: 50px 0px 0px 0px;">
+            <h1 style="color: red;text-align: center;">Formulario de Registro </h1>
+            {% if validacion == 2%}
+            <div class="alert alert-danger" role="alert">
+                Los campos son obligatorios!
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Apellidos</label>
-                <input type="text" class="form-control" name="apellidos"  placeholder="Digite su apellido">
+            {% endif%}
+            {% if validacion == 1%}
+            <div class="alert alert-success" role="alert">
+                Registro hecho exitosamente!
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Numero Cedula</label>
-                <input type="text" class="form-control" name="cedula"  placeholder="Digite su numero de cedula">
+            {% endif%}
+            {% if validacion == 3%}
+            <div class="alert alert-danger" role="alert">
+                la cedula ingresada ya esta registrada!
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" name="telefono"  placeholder="Digite su telefono">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Email</label>
-                <input type="text" class="form-control" name="email"  placeholder="example@gmail.com">
-            </div>
-            <input type="submit" class="btn btn-success" value="Registrar"/>
-        </form>
+            {% endif%}
+            <form action="/registro/" method="GET">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Nombres</label>
+                    <input class="form-control" name="nombre" placeholder="Digite su nombre">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Apellidos</label>
+                    <input class="form-control" name="apellidos" placeholder="Digite su apellido">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Numero Cedula</label>
+                    <input class="form-control" name="cedula" placeholder="Digite su numero de cedula">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Telefono</label>
+                    <input class="form-control" name="telefono" placeholder="Digite su telefono">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Ciudad</label>
+                    <select class="form-control" id="exampleFormControlSelect1" name="ciudad">
+                        <option value="seleccione">Seleccione</option>
+                        {% for ciudad in ciudades %}
+                        <option value="{{ciudad.id}}">{{ciudad.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Email</label>
+                    <input class="form-control" name="email" placeholder="example@gmail.com">
+                </div>
+                <input type="submit" class="btn btn-success" value="Registrar" />
+                <ul>
+                    {% for cedul in cedulavalidacion %}
+                    <li>{{cedul.nombres}}</li>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+        <div class="col-md-6" style="margin: 50px 0px 0px 0px;">
+            <h1 style="color: red;text-align: center;">Listado Usuarios</h1>
+            <br />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">C.C</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Ip</th>
+                        <th scope="col">Ciudad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dato in lista%}
+                    <tr>
+                        <th scope="row">{{dato.nombres}}</th>
+                        <td>{{dato.apellidos}}</td>
+                        <td>{{dato.cedula}}</td>
+                        <td>{{dato.telefono}}</td>
+                        <td>{{dato.ip}}</td>
+                        <td>{{dato.ciudad.nombre}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
